@@ -5,7 +5,7 @@ PowerShell script that facilitates the action of switching Terraform versions on
 ```
 Options are as follows:
   -Version : The version of Terraform to be installed.
-          - The list of versions that are able to be used can be derived from the '-ListVersions' option below.
+     - The list of versions that are able to be used can be derived from the '-ListVersions' option below.
 
   -ListVersions : List all versions of Terraform available for installation.
 
