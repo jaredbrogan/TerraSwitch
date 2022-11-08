@@ -25,7 +25,8 @@ Your version of Terraform is out of date! The latest version
 is 1.3.4. You can update by downloading from www.terraform.io/downloads.html
 ```
 ```
-PS C:\Users> TerraSwitch.ps1 -Latest                                                                                                                [INFO] Proceeding with installation of the latest version available
+PS C:\Users> TerraSwitch.ps1 -Latest
+[INFO] Proceeding with installation of the latest version available
 
 [INFO] Using previously downloaded Terraform v1.3.4
 [WARNING] The 'C:\Users\johndoe\terraform\bin' directory is not residing in PATH.
