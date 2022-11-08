@@ -140,7 +140,7 @@ function InstallVersion($Version){
   if ($ValidPath -eq 0){
     Write-Host -ForegroundColor Yellow "[WARNING] The '$BinDir' directory is not residing in PATH."
     Write-Host -ForegroundColor Yellow -NoNewLine "  $bullet Updating PATH now... "
-    Add-Content -Value `n'$env:Path += ";$BinDir"' -Path "$PROFILE"
+    Add-Content -Value `n'$env:Path += ";$env:USERPROFILE\terraform\bin"' -Path "$PROFILE"
     & $PROFILE
     Write-Host -ForegroundColor Green "Success!`n"
   }
