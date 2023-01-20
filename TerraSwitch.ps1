@@ -116,8 +116,8 @@ function InstallVersion($Version){
   if (! (Test-Path -Path $InstallDir) ){
     Write-Host -ForegroundColor Yellow "[WARNING] Install directory not present!"
     Write-Host -ForegroundColor Yellow "  $bullet Creating '$InstallDir' contents now... " -NoNewLine
-    New-Item -ItemType "directory" -Path "$CacheDir" -Force | Out-File Null
-    New-Item -ItemType "directory" -Path "$BinDir" -Force | Out-File Null
+    New-Item -ItemType "directory" -Path "$CacheDir" -Force | Out-Null
+    New-Item -ItemType "directory" -Path "$BinDir" -Force | Out-Null
     if (Test-Path -Path $InstallDir){
       Write-Host -ForegroundColor Green "Success!`n"
     }
@@ -147,7 +147,7 @@ function InstallVersion($Version){
   
   # Install Terraform
   Write-Host -NoNewLine -ForegroundColor Green "[INFO] Installing Terraform v$Version... "
-  New-Item -ItemType "directory" -Path "$CacheDir\$Version" -Force | Out-File Null
+  New-Item -ItemType "directory" -Path "$CacheDir\$Version" -Force | Out-Null
   if ($LocalStatus){
     Copy-Item "$CacheDir\$Version\terraform.exe" -Destination "$BinDir\terraform.exe" -Force | Out-Null
   }
