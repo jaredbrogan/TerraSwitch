@@ -46,7 +46,7 @@ function CheckParams {
       Write-Host -ForegroundColor Green "[INFO] Proceeding with installation of version $Version`n"
       InstallVersion($Version)
     }
-    else{
+    else {
       Write-Host -ForegroundColor Red "[ERROR] Version provided is not valid. Please try again."
       Write-Host -ForegroundColor Red "  $bullet Exit Code: 2"
       exit 2
@@ -71,7 +71,6 @@ function CheckParams {
 
 function ListVersions {
   $Versions = ((Invoke-WebRequest -Uri "https://releases.hashicorp.com/terraform/").Links.href | Select-Object -Skip 1 | %{ $_ -Replace "^/terraform/", "" }).TrimEnd('/')
- 
   ForEach ($Version in $Versions){
     Write-Host "  $bullet $Version"
   }
@@ -97,11 +96,11 @@ function InstallVersion($Version){
     Write-Host -ForegroundColor Green "[INFO] Using previously downloaded Terraform v$Version"
     $LocalStatus = $True
   }
-  else{
-    try{ 
+  else {
+    try { 
       $StatusCode = (Invoke-WebRequest -Uri "https://releases.hashicorp.com/terraform/$Version" -ErrorAction Stop).StatusCode
     }
-    catch{
+    catch {
       $StatusCode = $_.Exception.Response.StatusCode.Value__
     }
     
@@ -121,7 +120,7 @@ function InstallVersion($Version){
     if (Test-Path -Path $InstallDir){
       Write-Host -ForegroundColor Green "Success!`n"
     }
-    else{
+    else {
       Write-Host -ForegroundColor Red "Failed."
       Write-Host -ForegroundColor Red "  $bullet Exit Code: 5"
       exit 5
@@ -139,6 +138,18 @@ function InstallVersion($Version){
   
   if ($ValidPath -eq 0){
     Write-Host -ForegroundColor Yellow "[WARNING] The '$BinDir' directory is not residing in PATH."
+    if (-not (Test-Path -Path $PROFILE)) {
+      Write-Host -ForegroundColor Yellow -NoNewLine "  $bullet PowerShell Profile not detected. Initializing... "
+      New-Item -ItemType File -Path $PROFILE -Force | Out-Null
+      if (Test-Path -Path $PROFILE) {
+        Write-Host -ForegroundColor Green "Success!"
+      }
+      else {
+        Write-Host -ForegroundColor Red "Failed."
+        Write-Host -ForegroundColor Red "    $bullet Exit Code: 7"
+        exit 7
+      }
+    }
     Write-Host -ForegroundColor Yellow -NoNewLine "  $bullet Updating PATH now... "
     Add-Content -Value `n'$env:Path += ";$env:USERPROFILE\terraform\bin"' -Path "$PROFILE"
     & $PROFILE
@@ -151,7 +162,7 @@ function InstallVersion($Version){
   if ($LocalStatus){
     Copy-Item "$CacheDir\$Version\terraform.exe" -Destination "$BinDir\terraform.exe" -Force | Out-Null
   }
-  else{
+  else {
     $ProgressPreference = 'SilentlyContinue'
     Invoke-WebRequest -Uri "https://releases.hashicorp.com/terraform/$Version/terraform_$Version`_windows_amd64.zip" -OutFile "$DownloadDir.zip" | Out-Null
     Expand-Archive -Force -Path "$DownloadDir.zip" -DestinationPath "$DownloadDir" | Out-Null
@@ -164,7 +175,7 @@ function InstallVersion($Version){
   if (Test-Path $TFexe){
     Write-Host -ForegroundColor Green "Success!`n"
   }
-  else{
+  else {
     Write-Host -ForegroundColor Red "Failed."
     Write-Host -ForegroundColor Red "  $bullet Exit Code: 6"
     exit 6
@@ -178,3 +189,4 @@ function InstallVersion($Version){
 
 #__main__
 CheckParams
+
