@@ -2,7 +2,7 @@
 PowerShell script that facilitates the action of switching Terraform versions on the fly.
 
 ## Usage
-```
+```pwsh
 Options are as follows:
   -Version : The version of Terraform to be installed.
      - The list of versions that are able to be used can be derived from the '-ListVersions' option below.
@@ -12,7 +12,7 @@ Options are as follows:
   -Latest : Automatic installation of the latest version of Terraform. 
 ```
 ### Examples
-```
+```pwsh
 PS C:\Users> TerraSwitch.ps1 -Version 0.12.5
 [INFO] Proceeding with installation of version 0.12.5
 
@@ -24,7 +24,7 @@ Terraform v0.12.5
 Your version of Terraform is out of date! The latest version
 is 1.3.4. You can update by downloading from www.terraform.io/downloads.html
 ```
-```
+```pwsh
 PS C:\Users> TerraSwitch.ps1 -Latest
 [INFO] Proceeding with installation of the latest version available
 
@@ -38,7 +38,7 @@ PS C:\Users> TerraSwitch.ps1 -Latest
 Terraform v1.3.4
 on windows_amd64
 ```
-```
+```pwsh
 PS C:\Users> TerraSwitch.ps1 -Version 1.2.8
 [INFO] Proceeding with installation of version 1.2.8
 
